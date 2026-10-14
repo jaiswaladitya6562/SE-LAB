@@ -1,0 +1,6 @@
+************* Module dairy_collection
+dairy_collection.py:69:0: C0304: Final newline missing (missing-final-newline)
+
+------------------------------------------------------------------
+Your code has been rated at 9.71/10 (previous run: 2.00/10, +7.71)
+
