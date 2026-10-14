@@ -29,7 +29,9 @@ def farmer_token(farmer):
 
 def daily_total(conn, day):
     """Return the total litres collected on a given day."""
-    rows = conn.execute("SELECT litres FROM milk WHERE day = ?", (day,)).fetchall()
+    rows = conn.execute(
+        "SELECT litres FROM milk WHERE day = ?", (day,)
+    ).fetchall()
     return f"Total: {sum(r[0] for r in rows):.1f} litres"
 
 
