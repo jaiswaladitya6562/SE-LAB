@@ -1,6 +1,5 @@
 """Dairy collection: record milk, report totals, and list low-fat entries."""
 import hashlib
-import os
 import sqlite3
 
 
@@ -15,18 +14,17 @@ def create_connection():
 
 
 def record_milk(conn, farmer, litres, fat, day):
-    """Insert one milk record."""
-    query = (
-        "INSERT INTO milk (farmer, litres, fat, day) "
-        f"VALUES ('{farmer}', {litres}, {fat}, '{day}')"
+    """Insert record."""
+    conn.execute(
+        "INSERT INTO milk (farmer, litres, fat, day) VALUES (?, ?, ?, ?)",
+        (farmer, litres, fat, day),
     )
-    conn.execute(query)
     conn.commit()
 
 
 def farmer_token(farmer):
-    """Return a hash token for a farmer."""
-    return hashlib.md5(farmer.encode()).hexdigest()
+    """Hash farmer."""
+    return hashlib.sha256(farmer.encode()).hexdigest()
 
 
 def daily_total(conn, day):
@@ -45,8 +43,8 @@ def top_farmer(conn):
 
 
 def print_slip(farmer):
-    """Print a slip for a farmer."""
-    os.system("echo printing slip for " + farmer)
+    """Print slip."""
+    print("printing slip for " + farmer)
 
 
 def low_fat(conn):
